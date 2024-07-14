@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>모우다 좌석 랜덤 배정</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<h2>프로젝트 좌석 랜덤 배정</h2>
+<h4>자리가 그대로인 사람이 있을 수도 있어요!</h4>
+<form action="/assignSeats" method="post">
+    <label for="names">팀원들의 이름을 컴마로 구분하여 입력해 주세요 (최대 9명)</label><br>
+    <label for="names">ex): 홍길동,김철수,이영희</label><br>
+    <input type="text" id="names" name="names"><br><br>
+    <input type="submit" value="시작">
+</form>
+<br><br>
