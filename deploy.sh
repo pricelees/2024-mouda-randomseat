@@ -3,7 +3,7 @@
 RED="\e[1;31m"
 GREEN="\e[1;34m"
 ENDCOLOR="\e[0m"
-PROJECT_NAME=2024-mouda-randomseat
+PROJECT_NAME=randomseat
 
 echo "\\n==== Start Deploy ====\\n"
 
