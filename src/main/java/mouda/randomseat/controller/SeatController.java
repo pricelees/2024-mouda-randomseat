@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
 import mouda.randomseat.service.SeatService;
@@ -16,6 +17,12 @@ import mouda.randomseat.service.SeatService;
 public class SeatController {
 	private static final String DEFAULT_MEMBERS = "치코,안나,소파,수야,테니,테바,호기,상돌";
 	private final SeatService seatService;
+
+	@GetMapping("/health-check")
+	@ResponseBody
+	public String healthCheck() {
+		return "<h1>health-check</h1>";
+	}
 
 	@GetMapping("/")
 	public String showForm(Model model) {
