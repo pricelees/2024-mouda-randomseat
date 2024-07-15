@@ -33,6 +33,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script_stop: true
           script: |
+            sudo chmod u+x /home/ubuntu/2024-mouda-randomseat/deploy.sh
             sh /home/ubuntu/2024-mouda-randomseat/deploy.sh
 
 
