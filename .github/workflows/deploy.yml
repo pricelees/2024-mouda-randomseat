@@ -16,8 +16,10 @@ jobs:
         with:
           java-version: '17'
           distribution: 'corretto'
+
       - name: Gradlew Pemission
         run: chmod +x ./gradlew
+
       - name: Build with Gradle
         run: ./gradlew clean build
 
