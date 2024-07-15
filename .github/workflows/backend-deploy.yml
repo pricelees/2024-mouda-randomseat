@@ -1,13 +1,9 @@
-name: mouda-dev
+name: randomseat
 
 on:
   push:
     branches:
-    - develop-backend
-
-defaults:
-  run:
-    working-directory: backend
+    - main
 
 jobs:
   build:
@@ -32,9 +28,9 @@ jobs:
       - name: 배포 스크립트 실행
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST }} # 43.202.67.25
+          host: ${{ secrets.EC2_HOST }} # 43.202.67.25
           username: ubuntu
-          key: ${{ secrets.KEY_PAIR }}
+          key: ${{ secrets.EC2_SSH_KEY }}
           script: |
 #            sh /home/ubuntu/2024-mouda/backend/deploy.sh
             sh /home/ubuntu/2024-mouda-randomseat/deploy.sh
