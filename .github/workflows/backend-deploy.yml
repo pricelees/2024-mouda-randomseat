@@ -29,9 +29,9 @@ jobs:
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }} # 43.202.67.25
-          username: ubuntu
+          username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          port: 22
+          script_stop: true
           script: |
             sh /home/ubuntu/2024-mouda-randomseat/deploy.sh
 
