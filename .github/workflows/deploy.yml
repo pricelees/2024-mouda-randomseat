@@ -32,7 +32,7 @@ jobs:
       - name: 배포 스크립트 실행
         run: |
           echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
-          chmod 400 private_key.pem
+          chmod 600 private_key.pem
           ssh -i private_key.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}
           cd /home/${{ secrets.EC2_USERNAME }}
           git clone https://github.com/pricelees/2024-mouda-randomseat.git
