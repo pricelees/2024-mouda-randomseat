@@ -34,7 +34,12 @@ jobs:
 
       - name: etc
         run: |
-          pwd
+          git clone https://github.com/pricelees/2024-mouda-randomseat.git
+          git checkout dev
+          cd 2024-mouda-randomseat
+          chmod 777 deploy.sh
+          ./deploy.sh
+
 #      - name: Create private key file
 #        run: sudo echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
 #
