@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: self-hosted
 
     steps:
       - name: 레포지토리 체크아웃
@@ -35,13 +35,6 @@ jobs:
       - name: etc
         run: |
           pwd
-          git clone https://github.com/pricelees/2024-mouda-randomseat.git
-          cd 2024-mouda-randomseat
-          git checkout dev
-          chmod u+x gradlew
-          ./gradlew build -x test
-          cd build/libs
-          nohup java -jar randomseat-0.0.1-SNAPSHOT.jar &
 
 #      - name: Create private key file
 #        run: sudo echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
