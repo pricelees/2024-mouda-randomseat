@@ -31,26 +31,31 @@ jobs:
     steps:
       - name: runner permission
         run: sudo chown -R ubuntu:ubuntu /home/***/actions-runner/_work
-      - name: Create private key file
-        run: sudo echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
 
-      - name: Change permission of the private key
-        run: chmod 600 private_key.pem
-
-      - name: Run deployment script
+      - name: etc
         run: |
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOF'
-            cd /home/${{ secrets.EC2_USERNAME }}
-            if [ ! -d "2024-mouda-randomseat" ]; then
-              git clone https://github.com/pricelees/2024-mouda-randomseat.git
-            else
-              cd 2024-mouda-randomseat
-              git pull
-            fi
-            cd 2024-mouda-randomseat
-            chmod 777 deploy.sh
-            ./deploy.sh
-          EOF
-
-      - name: Clean up
-        run: rm -f private_key.pem
+          cd ~/actions-runner/_work/2024-mouda-randomseat/2024-mouda-randomseat/build/libs
+          nohup java -jar randomseat-0.0.1-SNAPSHOT.jar &
+#      - name: Create private key file
+#        run: sudo echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
+#
+#      - name: Change permission of the private key
+#        run: chmod 600 private_key.pem
+#
+#      - name: Run deployment script
+#        run: |
+#          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOF'
+#            cd /home/${{ secrets.EC2_USERNAME }}
+#            if [ ! -d "2024-mouda-randomseat" ]; then
+#              git clone https://github.com/pricelees/2024-mouda-randomseat.git
+#            else
+#              cd 2024-mouda-randomseat
+#              git pull
+#            fi
+#            cd 2024-mouda-randomseat
+#            chmod 777 deploy.sh
+#            ./deploy.sh
+#          EOF
+#
+#      - name: Clean up
+#        run: rm -f private_key.pem
