@@ -35,12 +35,13 @@ jobs:
 
       - name: install java
         run: |
-          wget -O- https://apt.corretto.aws/corretto.key | sudo apt-key add - 
-          sudo add-apt-repository 'deb https://apt.corretto.aws stable main'
-          sudo apt-get update; sudo apt-get install -y java-17-amazon-corretto-jdk
+          wget -O- https://apt.corretto.aws/corretto.key | sudo apt-key add - > /dev/null
+          sudo add-apt-repository 'deb https://apt.corretto.aws stable main' > /dev/null
+          sudo apt-get update; sudo apt-get install -y java-17-amazon-corretto-jdk > /dev/null
 
       - name: git clone & checkout
         run: |
+          rm -rf 2024-mouda-randomseat
           git clone https://github.com/pricelees/2024-mouda-randomseat.git
           cd 2024-mouda-randomseat
           git checkout dev
