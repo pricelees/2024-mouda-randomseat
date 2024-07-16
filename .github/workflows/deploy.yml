@@ -54,7 +54,7 @@ jobs:
       - name: deploy
         run: |
           chmod u+x deploy.sh
-          ./deploy.sh
+          sudo ./deploy.sh
           
 
 
