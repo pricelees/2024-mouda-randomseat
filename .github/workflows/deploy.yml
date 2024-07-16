@@ -33,9 +33,41 @@ jobs:
         run: |
           pwd
 
-      - name: etc
+      - name: create & grand permission pemkey
         run: |
-          pwd
+          echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
+          chmod 400 private_key.pem
+
+      - name: ssh to ec2
+        run: |
+          ssh -i private_key.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}
+          cd /home/${{ secrets.EC2_USERNAME }}
+
+      - name: install java
+        run: |
+          wget -O- https://apt.corretto.aws/corretto.key | sudo apt-key add - 
+          sudo add-apt-repository 'deb https://apt.corretto.aws stable main'
+          sudo apt-get update; sudo apt-get install -y java-17-amazon-corretto-jdk
+
+      - name: git clone & checkout
+        run: |
+          git clone https://github.com/pricelees/2024-mouda-randomseat.git
+          cd 2024-mouda-randomseat
+          git checkout dev
+
+      - name: gradlew build
+        run: |
+          chmod u+x gradlew
+          ./gradlew clean build -x test
+
+      - name: deploy
+        run: |
+          cd build/libs
+          nohup java -jar randomseat-0.0.1-SNAPSHOT.jar &
+          
+
+
+
 
 #      - name: Create private key file
 #        run: sudo echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
