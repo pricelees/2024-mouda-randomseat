@@ -34,7 +34,7 @@ public class SeatService {
 	private List<String> getInitialNames(List<String> names) {
 		List<String> result = new ArrayList<>(names);
 		while (result.size() < 9) {
-			result.add(" - ");
+			result.add("빈자리");
 		}
 		return result;
 	}
