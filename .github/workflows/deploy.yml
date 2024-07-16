@@ -40,7 +40,7 @@ jobs:
 
       - name: ssh to ec2
         run: |
-          ssh -i private_key.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}
+          ssh -ti private_key.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}
           cd /home/${{ secrets.EC2_USERNAME }}
 
       - name: install java
