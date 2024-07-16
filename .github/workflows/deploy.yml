@@ -33,16 +33,6 @@ jobs:
         run: |
           pwd
 
-      - name: create & grand permission pemkey
-        run: |
-          echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
-          chmod 400 private_key.pem
-
-      - name: ssh to ec2
-        run: |
-          ssh -ti private_key.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}
-          cd /home/${{ secrets.EC2_USERNAME }}
-
       - name: install java
         run: |
           wget -O- https://apt.corretto.aws/corretto.key | sudo apt-key add - 
