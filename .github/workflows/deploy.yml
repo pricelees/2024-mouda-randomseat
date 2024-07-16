@@ -38,8 +38,10 @@ jobs:
           git clone https://github.com/pricelees/2024-mouda-randomseat.git
           cd 2024-mouda-randomseat
           git checkout dev
-          chmod 777 deploy.sh
-          ./deploy.sh
+          chmod u+x gradlew
+          ./gradlew build -x test
+          cd build/libs
+          nohup java -jar randomseat-0.0.1-SNAPSHOT.jar &
 
 #      - name: Create private key file
 #        run: sudo echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
