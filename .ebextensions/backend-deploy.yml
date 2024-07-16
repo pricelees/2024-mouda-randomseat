@@ -23,17 +23,21 @@ jobs:
         run: chmod +x gradlew
 
       - name: Gradle 빌드
-        run: ./gradlew build
+        run: ./gradlew build -x test
 
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
       - name: 배포 스크립트 실행
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2_HOST }} # 43.202.67.25
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script_stop: true
-          script: |
-            sudo chmod u+x /home/ubuntu/2024-mouda-randomseat/deploy.sh
-            sh /home/ubuntu/2024-mouda-randomseat/deploy.sh
+        run: |
+          echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
+          chmod 400 private_key.pem
+          ssh -i private_key.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}
+          cd /home/${{ secrets.EC2_USERNAME }}
+          git clone https://github.com/pricelees/2024-mouda-randomseat.git
+          cd 2024-mouda-randomseat
+          chmod 777 deploy.sh
+          ./deploy.sh
 
 
