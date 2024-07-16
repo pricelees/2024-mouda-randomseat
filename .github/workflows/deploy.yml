@@ -29,6 +29,8 @@ jobs:
     needs: build
     runs-on: self-hosted
     steps:
+      - name: runner permission
+        run: sudo chown -R ubuntu:ubuntu /home/***/actions-runner/_work
       - name: Create private key file
         run: sudo echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
 
