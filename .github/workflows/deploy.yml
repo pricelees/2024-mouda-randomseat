@@ -30,7 +30,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Create private key file
-        run: echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
+        run: sudo echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
 
       - name: Change permission of the private key
         run: chmod 600 private_key.pem
