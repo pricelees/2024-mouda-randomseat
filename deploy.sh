@@ -9,7 +9,7 @@ echo "\\n==== Start Deploy ====\\n"
 
 echo "${GREEN}> Git Pull${ENDCOLOR}"
 
-git pull origin main
+git pull origin dev
 
 echo "${GREEN}> Build Project${ENDCOLOR}"
 
