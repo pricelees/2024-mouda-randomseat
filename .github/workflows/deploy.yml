@@ -53,7 +53,7 @@ jobs:
       - name: deploy
         run: |
           cd build/libs
-          nohup java -jar randomseat-0.0.1-SNAPSHOT.jar &
+          nohup java -jar randomseat-0.0.1-SNAPSHOT.jar & disown
           
 
 
