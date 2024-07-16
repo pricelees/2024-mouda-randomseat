@@ -29,15 +29,26 @@ jobs:
     needs: build
     runs-on: self-hosted
     steps:
-      - name: 배포 스크립트 실행
+      - name: Create private key file
+        run: echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
+
+      - name: Change permission of the private key
+        run: chmod 600 private_key.pem
+
+      - name: Run deployment script
         run: |
-          echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
-          chmod 600 private_key.pem
-          ssh -i private_key.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}
-          cd /home/${{ secrets.EC2_USERNAME }}
-          git clone https://github.com/pricelees/2024-mouda-randomseat.git
-          cd 2024-mouda-randomseat
-          chmod 777 deploy.sh
-          ./deploy.sh
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOF'
+            cd /home/${{ secrets.EC2_USERNAME }}
+            if [ ! -d "2024-mouda-randomseat" ]; then
+              git clone https://github.com/pricelees/2024-mouda-randomseat.git
+            else
+              cd 2024-mouda-randomseat
+              git pull
+            fi
+            cd 2024-mouda-randomseat
+            chmod 777 deploy.sh
+            ./deploy.sh
+          EOF
 
-
+      - name: Clean up
+        run: rm -f private_key.pem
