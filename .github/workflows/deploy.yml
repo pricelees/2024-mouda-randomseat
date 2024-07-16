@@ -3,7 +3,7 @@ name: randomseat
 on:
   push:
     branches:
-      - main
+      - dev
 
 jobs:
   build:
