@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-24.04
 
     steps:
       - name: 레포지토리 체크아웃
@@ -29,8 +29,9 @@ jobs:
     needs: build
     runs-on: self-hosted
     steps:
-      - name: runner permission
-        run: sudo chown -R ubuntu:ubuntu /home/***/actions-runner/_work
+      - name: directory check
+        run: |
+          pwd
 
       - name: etc
         run: |
