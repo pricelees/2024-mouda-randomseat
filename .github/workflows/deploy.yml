@@ -15,11 +15,11 @@ jobs:
         with:
           ref: dev
 
-      - name: JDK 17을 설치
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'corretto'
+#      - name: JDK 17을 설치
+#        uses: actions/setup-java@v4
+#        with:
+#          java-version: '17'
+#          distribution: 'corretto'
 
       - name: gradlew 권한 부여
         run: chmod +x gradlew
