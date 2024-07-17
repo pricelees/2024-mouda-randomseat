@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: self-hosted
 
     steps:
       - name: 레포지토리 체크아웃
@@ -25,36 +25,41 @@ jobs:
       - name: Gradle 빌드
         run: ./gradlew build -x test
 
-  deploy:
-    needs: build
-    runs-on: self-hosted
-    steps:
-      - name: directory check
+      - name: dir check
         run: |
           pwd
+          
 
-      - name: install java
-        run: |
-          wget -O- https://apt.corretto.aws/corretto.key | sudo apt-key add - > /dev/null
-          sudo add-apt-repository 'deb https://apt.corretto.aws stable main' > /dev/null
-          sudo apt-get update; sudo apt-get install -y java-17-amazon-corretto-jdk > /dev/null
-
-      - name: git clone & checkout
-        run: |
-          rm -rf 2024-mouda-randomseat
-          git clone https://github.com/pricelees/2024-mouda-randomseat.git
-          cd 2024-mouda-randomseat
-          git checkout dev
-
-      - name: gradlew build
-        run: |
-          chmod u+x gradlew
-          ./gradlew clean build -x test
-
-      - name: deploy
-        run: |
-          cd build/libs
-          sudo nohup java -jar randomseat-0.0.1-SNAPSHOT.jar > app.log 2> err.log &
+#  deploy:
+#    needs: build
+#    runs-on: self-hosted
+#    steps:
+#      - name: directory check
+#        run: |
+#          pwd
+#
+#      - name: install java
+#        run: |
+#          wget -O- https://apt.corretto.aws/corretto.key | sudo apt-key add - > /dev/null
+#          sudo add-apt-repository 'deb https://apt.corretto.aws stable main' > /dev/null
+#          sudo apt-get update; sudo apt-get install -y java-17-amazon-corretto-jdk > /dev/null
+#
+#      - name: git clone & checkout
+#        run: |
+#          rm -rf 2024-mouda-randomseat
+#          git clone https://github.com/pricelees/2024-mouda-randomseat.git
+#          cd 2024-mouda-randomseat
+#          git checkout dev
+#
+#      - name: gradlew build
+#        run: |
+#          chmod u+x gradlew
+#          ./gradlew clean build -x test
+#
+#      - name: deploy
+#        run: |
+#          cd build/libs
+#          sudo nohup java -jar randomseat-0.0.1-SNAPSHOT.jar > app.log 2> err.log &
           
 
 
